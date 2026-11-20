@@ -1,0 +1,38 @@
+[project]
+name = "voxlens-mcp"
+version = "0.1.0"
+description = "为 AI 检索多平台公开讨论，发现用户经验，追溯原始回应。"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<1",
+    "jieba==0.42.1",
+    "mcp>=1.20,<2",
+    "uvicorn>=0.32,<1",
+    "starlette>=0.41,<1",
+    "jsonschema>=4.20,<5",
+]
+
+[project.scripts]
+voxlens-mcp = "voxlens.server:main"
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/voxlens"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/voxlens", "tests", "docs", "README.md", "pyproject.toml", "mise.toml", "uv.lock"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2", "ruff>=0.12,<1"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
